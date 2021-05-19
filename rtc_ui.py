@@ -111,7 +111,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout_3.addWidget(self.label_2)
         self.progressBar = QtWidgets.QProgressBar(self.verticalLayoutWidget)
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.verticalLayout_3.addWidget(self.progressBar)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -124,7 +124,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Control del RTC"))
         self.btnSrc2.setText(_translate("MainWindow", "Añadir fuente 2"))
         self.btnSrc1.setText(_translate("MainWindow", "Añadir fuente 1"))
         self.btnSrc3.setText(_translate("MainWindow", "Añadir fuente 3"))
