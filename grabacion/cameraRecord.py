@@ -12,19 +12,10 @@ def checkCameras ():
 		cap = cv.VideoCapture(i)
 		
 		if cap.read()[0]:
-			arr.append(i)
+			arr.append(str(i))
 			cap.release()
 	print(arr)
 	return arr
-
-class camThread (th.Thread):
-	def __init__(self, previewName, camID):
-		th.Thread.__init__(self)
-		self.previewName = previewName
-		self.camID = camID
-	def run(self):
-		print("Starting " + self.previewName)
-		camPreview(self.previewName, self.camID)
 		
 def camPreview(previewName, camID, ti):
 	#cv.namedWindow(previewName)
@@ -47,14 +38,13 @@ def camPreview(previewName, camID, ti):
 	#cv.destroyWindow(previewName)
 	cam.release()
 
-camID = int(sys.argv[1])
-
-camerasAvailable = [camID]
-
-for camID in camerasAvailable:
-	camPreview('Source0', 0, 4)
-	camPreview('Source2', 2, 5)
-	camPreview('Source1', 0, 4)
+def takePreviewImage (source, name):
+	cap = cv.VideoCapture(source)
+	
+	_,frame = cap.read()
+	cap.release() #releasing camera immediately after capturing picture
+	if _ and frame is not None:
+		cv.imwrite(name, frame)
 
 
 
