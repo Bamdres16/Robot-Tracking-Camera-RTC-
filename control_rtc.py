@@ -22,6 +22,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def selectSource1(self, i):
+        self.toggleStateCamera()
         #self.graphicsView
         #takePreviewImage(int(self.camerasAvailable[i]), "img_0.jpg")
         print("Ok 1")

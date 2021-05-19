@@ -7,12 +7,12 @@ width = 288
 height = 352
 def checkCameras ():
 	index = 0
-	arr = []
+	arr = {}
 	for i in range(10):
 		cap = cv.VideoCapture(i)
 		
 		if cap.read()[0]:
-			arr.append(str(i))
+			arr[str(i)] = True
 			cap.release()
 	print(arr)
 	return arr
