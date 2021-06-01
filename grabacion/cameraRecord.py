@@ -32,7 +32,7 @@ def checkCameras():
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, camID, duration, width=640, height=480, fps=10.0):
+def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + today
@@ -69,7 +69,7 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (rootSources, width = 640, height = 480, fps = 10.0):
+def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + rootSources
@@ -96,10 +96,10 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 10.0):
     out.release()
     print("Mix video generated")
     
-# Codigo de ejemplo
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 2, 2, fps = 20.0)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 4, 2, fps = 20.0)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
-generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021", fps = 20.0)
+# # Codigo de ejemplo
+# recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
+# recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 2, 2, fps = 20.0)
+# recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 4, 2, fps = 20.0)
+# recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
+# generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021", fps = 20.0)
 		

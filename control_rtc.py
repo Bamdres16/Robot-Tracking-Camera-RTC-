@@ -6,58 +6,25 @@ from PyQt5.QtGui import QPixmap
 import os
 import sys
 
-rootPreviews = "../Previews/"
+rootPreviews = "Previews/"
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
-            QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
-            self.setupUi(self)
-            self.camerasAvailable = checkCameras()
-            self.camerasListAvailable = list(self.camerasAvailable)
-            #self.pushButton.clicked.connect(self.changeProgress)
+        QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
+        self.setupUi(self)
+        self.setPreviews()
+        #self.pushButton.clicked.connect(self.changeProgress)
             
-            self.updateCombos()
-            
-            # Buttons events
-            self.btnSrc1.clicked.connect(self.selectSource1)
-            self.btnSrc2.clicked.connect(self.selectSource2)
-            self.btnSrc3.clicked.connect(self.selectSource3)
-            self.btnSrc4.clicked.connect(self.selectSourceExtra)
+    def setPreviews(self):
+        takePicture(0, rootPreviews + "img_0.jpg")
+        takePicture(2, rootPreviews + "img_1.jpg")
+        takePicture(4, rootPreviews + "img_2.jpg")
+        self.previewSrc1.setPixmap(QtGui.QPixmap(rootPreviews + "img_0.jpg"))
+        self.previewSrc2.setPixmap(QtGui.QPixmap(rootPreviews + "img_1.jpg"))
+        self.previewSrc3.setPixmap(QtGui.QPixmap(rootPreviews + "img_2.jpg"))
 
-
-    def selectSource1(self, i):
         
-        #self.graphicsView
         
-        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_1.jpg")
-        self.previewSrc1.setPixmap(QtGui.QPixmap(rootPreviews + "img_1.jpg"))
-        print("Ok 1")
-    
-    def selectSource2(self, i):
-        #self.graphicsView_3
-        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_2.jpg")
-        self.previewSrc2.setPixmap(QtGui.QPixmap(rootPreviews + "img_2.jpg"))
-        print("Ok 2")
-        
-    def selectSource3(self, i):
-        #self.graphicsView_2
-        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_3.jpg")
-        self.previewSrc3.setPixmap(QtGui.QPixmap(rootPreviews + "img_3.jpg"))
-        print("Ok 3")
-        
-    def selectSourceExtra(self, i):
-        #self.graphicsView_4
-        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_4.jpg")
-        self.previewSrc4.setPixmap(QtGui.QPixmap(rootPreviews + "img_4.jpg"))
-        print("Ok 4")
-        
-    def updateCombos(self):
-        cameraKeys = self.getKeysAvailable()
-        self.comboSrc1.addItems(cameraKeys)
-        self.comboSrc2.addItems(cameraKeys)
-        self.comboSrc3.addItems(cameraKeys)
-        self.comboSrc4.addItems(cameraKeys)
-    
     def getKeysAvailable(self):
         cameraKeys = []
         for i in self.camerasAvailable.keys():
