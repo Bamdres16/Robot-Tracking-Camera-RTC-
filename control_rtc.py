@@ -1,15 +1,19 @@
 from rtc_ui import *
 import time
-#from grabacion.cameraRecord import *
+from grabacion.cameraRecord import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
 import os
 import sys
+
+rootPreviews = "../Previews/"
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
             QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
             self.setupUi(self)
-            self.camerasAvailable = {"0": True, "2": True, "3":True}
+            self.camerasAvailable = checkCameras()
+            self.camerasListAvailable = list(self.camerasAvailable)
             #self.pushButton.clicked.connect(self.changeProgress)
             
             self.updateCombos()
@@ -22,24 +26,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def selectSource1(self, i):
-        self.toggleStateCamera()
+        
         #self.graphicsView
-        #takePreviewImage(int(self.camerasAvailable[i]), "img_0.jpg")
+        
+        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_1.jpg")
+        self.previewSrc1.setPixmap(QtGui.QPixmap(rootPreviews + "img_1.jpg"))
         print("Ok 1")
     
     def selectSource2(self, i):
         #self.graphicsView_3
-        #takePreviewImage(int(self.camerasAvailable[i]), "img_0.jpg")
+        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_2.jpg")
+        self.previewSrc2.setPixmap(QtGui.QPixmap(rootPreviews + "img_2.jpg"))
         print("Ok 2")
         
     def selectSource3(self, i):
         #self.graphicsView_2
-        #takePreviewImage(int(self.camerasAvailable[i]), "img_0.jpg")
+        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_3.jpg")
+        self.previewSrc3.setPixmap(QtGui.QPixmap(rootPreviews + "img_3.jpg"))
         print("Ok 3")
         
     def selectSourceExtra(self, i):
         #self.graphicsView_4
-        #takePreviewImage(int(self.camerasAvailable[i]), "img_0.jpg")
+        takePreviewImage(int(self.camerasListAvailable[i]), rootPreviews + "img_4.jpg")
+        self.previewSrc4.setPixmap(QtGui.QPixmap(rootPreviews + "img_4.jpg"))
         print("Ok 4")
         
     def updateCombos(self):

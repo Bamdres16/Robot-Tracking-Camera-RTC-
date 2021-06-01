@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'rtc.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -20,18 +22,6 @@ class Ui_MainWindow(object):
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.graphViewSrc1 = QtWidgets.QGraphicsView(self.gridLayoutWidget)
-        self.graphViewSrc1.setObjectName("graphViewSrc1")
-        self.gridLayout.addWidget(self.graphViewSrc1, 0, 0, 1, 1)
-        self.graphViewSrc4 = QtWidgets.QGraphicsView(self.gridLayoutWidget)
-        self.graphViewSrc4.setObjectName("graphViewSrc4")
-        self.gridLayout.addWidget(self.graphViewSrc4, 3, 1, 1, 1)
-        self.graphViewSrc2 = QtWidgets.QGraphicsView(self.gridLayoutWidget)
-        self.graphViewSrc2.setObjectName("graphViewSrc2")
-        self.gridLayout.addWidget(self.graphViewSrc2, 0, 1, 1, 1)
-        self.graphViewSrc3 = QtWidgets.QGraphicsView(self.gridLayoutWidget)
-        self.graphViewSrc3.setObjectName("graphViewSrc3")
-        self.gridLayout.addWidget(self.graphViewSrc3, 3, 0, 1, 1)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.comboSrc2 = QtWidgets.QComboBox(self.gridLayoutWidget)
@@ -68,6 +58,58 @@ class Ui_MainWindow(object):
         self.btnSrc4.setObjectName("btnSrc4")
         self.horizontalLayout_4.addWidget(self.btnSrc4)
         self.gridLayout.addLayout(self.horizontalLayout_4, 4, 1, 1, 1)
+        self.previewSrc1 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.previewSrc1.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.previewSrc1.sizePolicy().hasHeightForWidth())
+        self.previewSrc1.setSizePolicy(sizePolicy)
+        self.previewSrc1.setAutoFillBackground(True)
+        self.previewSrc1.setFrameShape(QtWidgets.QFrame.Box)
+        self.previewSrc1.setText("")
+        self.previewSrc1.setScaledContents(True)
+        self.previewSrc1.setObjectName("previewSrc1")
+        self.gridLayout.addWidget(self.previewSrc1, 0, 0, 1, 1)
+        self.previewSrc2 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.previewSrc2.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.previewSrc2.sizePolicy().hasHeightForWidth())
+        self.previewSrc2.setSizePolicy(sizePolicy)
+        self.previewSrc2.setAutoFillBackground(True)
+        self.previewSrc2.setFrameShape(QtWidgets.QFrame.Box)
+        self.previewSrc2.setText("")
+        self.previewSrc2.setScaledContents(True)
+        self.previewSrc2.setObjectName("previewSrc2")
+        self.gridLayout.addWidget(self.previewSrc2, 0, 1, 1, 1)
+        self.previewSrc3 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.previewSrc3.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.previewSrc3.sizePolicy().hasHeightForWidth())
+        self.previewSrc3.setSizePolicy(sizePolicy)
+        self.previewSrc3.setAutoFillBackground(True)
+        self.previewSrc3.setFrameShape(QtWidgets.QFrame.Box)
+        self.previewSrc3.setText("")
+        self.previewSrc3.setScaledContents(True)
+        self.previewSrc3.setObjectName("previewSrc3")
+        self.gridLayout.addWidget(self.previewSrc3, 3, 0, 1, 1)
+        self.previewSrc4 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.previewSrc4.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.previewSrc4.sizePolicy().hasHeightForWidth())
+        self.previewSrc4.setSizePolicy(sizePolicy)
+        self.previewSrc4.setAutoFillBackground(True)
+        self.previewSrc4.setFrameShape(QtWidgets.QFrame.Box)
+        self.previewSrc4.setText("")
+        self.previewSrc4.setScaledContents(False)
+        self.previewSrc4.setObjectName("previewSrc4")
+        self.gridLayout.addWidget(self.previewSrc4, 3, 1, 1, 1)
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(670, 10, 181, 491))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -136,4 +178,3 @@ class Ui_MainWindow(object):
         self.checkBox.setText(_translate("MainWindow", "Cámaras"))
         self.startBtn.setText(_translate("MainWindow", "Iniciar"))
         self.label_2.setText(_translate("MainWindow", "Progreso"))
-
