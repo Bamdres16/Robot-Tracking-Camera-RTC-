@@ -46,7 +46,7 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps=10.0):
     if source.isOpened():
         _, frame = source.read()
     current = time.time()
-    while (time.time() - current) < duration:
+    while (int(time.time() - current) < (duration+1)):
         out.write(frame)
         _, frame = source.read()
         if cv.waitKey(1) == ord('q'):
@@ -72,7 +72,7 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 10.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + rootSources
-    videoFiles = [n for n in os.listdir(filePath) if (n[-4:] == '.avi') and (n[0] != "f")]
+    videoFiles = sorted([n for n in os.listdir(filePath) if (n[-4:] == '.avi') and (n[0] != "f")])
     print(videoFiles)
    
     index = 0
@@ -96,9 +96,9 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 10.0):
     print("End")
     
 # Codigo de ejemplo
-''' recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 1)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 1)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 1)
-recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 1)
-generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021") '''
+recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
+recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 2, 2, fps = 20.0)
+recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 4, 2, fps = 20.0)
+recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
+generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021", fps = 20.0)
 		
