@@ -45,14 +45,15 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps=10.0):
     out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + today + '.avi', fourcc, fps, (width, height))
     if source.isOpened():
         _, frame = source.read()
+    print("Starting camera: " + str(camID))
     current = time.time()
-    while (int(time.time() - current) < (duration+1)):
+    while (int(time.time() - current) <= (duration+1)):
         out.write(frame)
         _, frame = source.read()
         if cv.waitKey(1) == ord('q'):
             break
     source.release()
-    print("Video created in", filePath)
+    print("Video created in " + filePath)
 
 # Esta funcion toma una imagen de la fuente especificada (camID), y se almacena en la ruta provista en el
 # parametro imageName.
@@ -93,7 +94,7 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 10.0):
         out.write(frame)
     source.release()
     out.release()
-    print("End")
+    print("Mix video generated")
     
 # Codigo de ejemplo
 recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
