@@ -1,0 +1,10 @@
+{
+    "student": "Nombre Apellido Apellido", 
+    "institution": "Escuela", 
+    "teacher": "Profesor Apellido Apellido", 
+    "algorithmName": "Nombre del algoritmo",
+    "code": {
+        "cameras": [0,1,2,1,2,0], 
+        "duration": [5,5,5,5,6,5]
+        }
+}
