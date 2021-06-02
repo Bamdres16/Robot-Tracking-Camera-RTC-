@@ -1,10 +1,9 @@
 from rtc_ui import *
-import time
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
 from grabacion.cameraRecord import *
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QPixmap
+from Herramientas.compileJson import *
 import os
-import sys
 
 rootPreviews = "Previews/"
 
@@ -12,40 +11,59 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
+        self.camerasAvailable = checkCameras()
+        self.previewSrcAvailable = [self.previewSrc1, self.previewSrc2, self.previewSrc3, self.previewSrc4]
         self.setPreviews()
-        #self.pushButton.clicked.connect(self.changeProgress)
+        self.lineEdit.textChanged.connect(self.isReadyToStart)
+        self.searchBtn.clicked.connect(self.open)
+        self.startBtn.clicked.connect(self.startRecording)
+        self.startBtnState = False
+        self.errorLabel.setVisible(False)
+        
+        
             
     def setPreviews(self):
-        takePicture(0, rootPreviews + "img_0.jpg")
-        takePicture(2, rootPreviews + "img_1.jpg")
-        takePicture(4, rootPreviews + "img_2.jpg")
-        self.previewSrc1.setPixmap(QtGui.QPixmap(rootPreviews + "img_0.jpg"))
-        self.previewSrc2.setPixmap(QtGui.QPixmap(rootPreviews + "img_1.jpg"))
-        self.previewSrc3.setPixmap(QtGui.QPixmap(rootPreviews + "img_2.jpg"))
-
-        
-        
-    def getKeysAvailable(self):
-        cameraKeys = []
-        for i in self.camerasAvailable.keys():
-            if self.camerasAvailable[i] == True:
-                cameraKeys.append(i)
-        return cameraKeys
+        index = 0
+        for i in self.camerasAvailable:
+            image = "img_" + str(i) + ".jpg"
+            takePicture(i, rootPreviews + image)
+            self.previewSrcAvailable[index].setPixmap(QtGui.QPixmap(rootPreviews + image))
+            index += 1 
     
-    def toggleStateCamera(self, key):
-        current = self.camerasAvailable[key]
-        self.camerasAvailable[key] = not current
+    def startRecording (self):
         
-    ''' def checkPath(self):
-        image_path = "img_0.jpg"
-        if os.path.isfile(image_path):
-            scene = QtWidgets.QGraphicsScene(self)
-            pixmap = QPixmap(image_path)
-            item = QtWidgets.QGraphicsPixmapItem(pixmap)
-            scene.addItem(item)
-            self.graphicsView.setScene(scene) '''
+        filePath = self.lineEdit.text()
+        cameras, duration = getAtributes(filePath)
+        print(cameras, duration)
         
-      
+    def isReadyToStart (self):
+        text = self.lineEdit.text()
+        pathExists = os.path.exists(text)
+        
+        if (pathExists and (text[-5:] == ".json")):
+            self.errorLabel.setVisible(False)
+            self.startBtn.setEnabled(True)
+            self.cbCode.setCheckState(True)
+        elif(not pathExists):
+            self.errorLabel.setText("Debe elegir un archivo existente")
+            self.errorLabel.setVisible(True)
+            self.startBtn.setEnabled(False)
+            self.cbCode.setCheckState(False)
+        elif (text[-5:] != ".json"):
+            self.errorLabel.setText("Debe elegir un archivo json válido")
+            self.errorLabel.setVisible(True)
+            self.startBtn.setEnabled(False)
+            self.cbCode.setCheckState(False)
+            
+        
+            
+        
+            
+    def open(self):
+        fileName = QFileDialog.getOpenFileName(self, 'OpenFile')
+        self.lineEdit.setText(fileName[0])
+        
+        
 if __name__ == "__main__":
     
     app = QtWidgets.QApplication([])

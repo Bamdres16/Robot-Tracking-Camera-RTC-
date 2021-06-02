@@ -16,16 +16,13 @@ rootPathVideos = "Videos/"
 
 
 def checkCameras():
-	index = 0
-	arr = {}
+	camerasAvailable = []
 	for i in range(10):
-	    cap = cv.VideoCapture(i)
-
-	    if cap.read()[0]:
-		    arr[str(i)] = True
-		    cap.release()
-	print(arr)
-	return arr
+		source = cv.VideoCapture(i)
+		if source.read()[0]:
+			camerasAvailable.append(i)
+			source.release()
+	return camerasAvailable
 
 # Aca podemos grabar un video desde un fuente (camID), el video se va a almacenar en la ruta
 # que se especifique en videoName, y la duracion de grabacion se pasa en el parametro
@@ -103,3 +100,4 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
 # recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
 # generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021", fps = 20.0)
 		
+checkCameras()

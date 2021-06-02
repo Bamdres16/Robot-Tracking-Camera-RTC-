@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>RTC Control</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
@@ -180,6 +180,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="errorLabel">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Debe agregar un archivo Json válido</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -193,7 +203,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QCheckBox" name="cbCode">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -221,6 +231,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="startBtn">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Iniciar</string>
        </property>
