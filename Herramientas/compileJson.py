@@ -9,3 +9,7 @@ def getAtributes (filePath):
         data = json.load(json_file)
         return data
     
+def setConfiguration(jsonData):
+    with open("configuracion.json", 'w') as json_file:
+        json.dump(jsonData, json_file)
+    

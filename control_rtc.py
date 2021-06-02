@@ -19,12 +19,31 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.startBtn.clicked.connect(self.startRecording)
         self.startBtnState = False
         self.errorLabel.setVisible(False)
+        self.width = 1920
+        self.height = 1080
+        self.fps = 20.0
+        self.setConfiguration()
+        self.comboQuality.currentTextChanged.connect(self.onChangeOption)
         
         
-            
+    def setConfiguration(self):
+        jsonData = getAtributes("configuracion.json")
+        keys = list(jsonData["calidades"].keys())
+        self.comboQuality.addItems(keys)
+        defaultQuality = jsonData["calidadDefecto"]
+        self.comboQuality.setCurrentText(defaultQuality)
+        values = jsonData["calidades"][defaultQuality]
+        self.width = values[0]
+        self.height = values[1]
+    
+    def onChangeOption(self):
+        text = self.comboQuality.currentText()
+        jsonData = getAtributes("configuracion.json")
+        jsonData["calidadDefecto"] = text
+        setConfiguration(jsonData)
+         
     def setPreviews(self):
         index = 0
-        print(self.camerasAvailable)
         for i in self.camerasAvailable:
             image = "img_" + str(i) + ".jpg"
             takePicture(i, rootPreviews + image)
@@ -50,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.progressBar.setValue((currentVideo / totalVideos) * 100)
             currentVideo += 1
         
-        generateVideo(fileVideoName + "/" + folder)
+        generateVideo(fileVideoName + "/" + folder, self.width, self.height, self.fps)
         currentVideo += 1
         self.progressBar.setValue((currentVideo / totalVideos) * 100)
         
