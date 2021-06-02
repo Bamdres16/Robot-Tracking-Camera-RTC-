@@ -1,1 +1,10 @@
-{"student": "Brayan Munoz Mora", "institution": "Liceo de Coronado", "teacher": "Leda Pacheco", "code": {"cameras": [0, 2,4], "duration": [5,5,5]}}
+{
+    "student": "Brayan Munoz Mora", 
+    "institution": "Liceo de Coronado", 
+    "teacher": "Leda Pacheco", 
+    "algorithmName": "Laboratorio1",
+    "code": {
+        "cameras": [0,1,2], 
+        "duration": [5,5,5]
+        }
+}

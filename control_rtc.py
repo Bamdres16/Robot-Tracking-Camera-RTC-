@@ -61,19 +61,21 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         studentName = jsonData["student"].replace(" ", "-")
         institution =  jsonData["institution"].replace(" ", "-")
         teacher = jsonData["teacher"].replace(" ", "-")
+        algorithmName = jsonData["algorithmName"].replace(" ", "-")
         fileVideoName = studentName + "_" + institution + "_" + teacher
         code = jsonData["code"]
         cameras = code["cameras"]
         duration = code["duration"]
-        folder = ""
+        lenFolders = len([n for n in os.listdir("Videos/" + fileVideoName) if algorithmName in n])
+        folderName = algorithmName + "_" + str(lenFolders)
         currentVideo = 0
         totalVideos = len(cameras) + 1
         for camID, durationCam in zip(cameras, duration):
-            folder = recordVideo(fileVideoName, camID, durationCam)
+            recordVideo(fileVideoName, folderName, camID, durationCam)
             self.progressBar.setValue((currentVideo / totalVideos) * 100)
             currentVideo += 1
         
-        generateVideo(fileVideoName + "/" + folder, self.width, self.height, self.fps)
+        generateVideo(fileVideoName, folderName, self.width, self.height, self.fps)
         currentVideo += 1
         self.progressBar.setValue((currentVideo / totalVideos) * 100)
         

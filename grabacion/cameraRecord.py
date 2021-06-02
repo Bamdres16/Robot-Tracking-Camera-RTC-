@@ -30,10 +30,11 @@ def checkCameras():
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, camID, duration, width = 640, height = 480, fps = 20.0):
+def recordVideo(videoName, folderName, camID, duration, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
-    filePath = rootPathVideos + videoName + "/" + today
+    
+    filePath = rootPathVideos + videoName + "/" + folderName
     source = cv.VideoCapture(camID)
     source.set(3, width)
     source.set(4, height)
@@ -78,13 +79,12 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
+def generateVideo (videoName, folderName, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
-    filePath = rootPathVideos + rootSources
+    filePath = rootPathVideos + videoName + "/" + folderName
     videoFiles = sorted([n for n in os.listdir(filePath) if (n[-4:] == '.avi') and (n[0] != "f")])
-    print(videoFiles)
-   
+    
     index = 0
     
     source = cv.VideoCapture(filePath + "/" + videoFiles[0])
