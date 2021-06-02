@@ -10,7 +10,10 @@ from datetime import datetime
 
 # Variables globales
 rootPathVideos = "Videos/"
-
+# Valores máximos de grabación
+width = 640
+height = 480
+fps = 20.0
 # Mediante esta funcion se pretende obtener todas aquellas fuentes de video
 # que se pueden abrir de los recursos de video (camaras) disponibles en el sistema.
 
@@ -18,7 +21,7 @@ rootPathVideos = "Videos/"
 def checkCameras():
 	camerasAvailable = []
 	for i in range(10):
-		source = cv.VideoCapture(i, 700)
+		source = cv.VideoCapture(i)
 		if source.read()[0]:
 			camerasAvailable.append(i)
 			source.release()
@@ -29,11 +32,15 @@ def checkCameras():
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
+def recordVideo(videoName, camID, duration):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + today
-    source = cv.VideoCapture(camID, 700)
+    source = cv.VideoCapture(camID)
+    source.set(3, width)
+    source.set(4, height)
+    source.set(5, fps)
+    time.sleep(2)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     if not os.path.exists(filePath):
         os.makedirs(filePath)
@@ -56,18 +63,21 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
 # Esta funcion toma una imagen de la fuente especificada (camID), y se almacena en la ruta provista en el
 # parametro imageName.
 def takePicture (camID, imageName):
-	source = cv.VideoCapture(camID,700)
+	source = cv.VideoCapture(camID)
 	_,frame = source.read()
-	source.release() 
+	for i in range(4):
+	    _,frame = source.read()
+	
 	if _ and frame is not None:
-		cv.imwrite(imageName, frame)
+	    cv.imwrite(imageName, frame)
+	source.release() 
   
 # Con esta funcion se genera la mezcla del video final, aca los videos estan almacenados con un un formato id_formato.avi,
 # el id corresponde al orden en el que fue grabado, es por esta razon que la mezcla se realiza en base a ese orden.
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
+def generateVideo (rootSources):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + rootSources
@@ -76,7 +86,11 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
    
     index = 0
     
-    source = cv.VideoCapture(filePath + "/" + videoFiles[0], 700)
+    source = cv.VideoCapture(filePath + "/" + videoFiles[0])
+    source.set(3, width)
+    source.set(4, height)
+    source.set(5, fps)
+    time.sleep(2)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     out = cv.VideoWriter(filePath + "/" + "f_" + today + '.avi', fourcc, fps, (width,height))
     
@@ -100,5 +114,4 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
 # recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 4, 2, fps = 20.0)
 # recordVideo("BrayanMunozMora_Prof_LiceoCoronado", 0, 2, fps = 20.0)
 # generateVideo("BrayanMunozMora_Prof_LiceoCoronado/01-06-2021", fps = 20.0)
-		
-checkCameras()
+	    

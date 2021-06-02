@@ -24,6 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             
     def setPreviews(self):
         index = 0
+        print(self.camerasAvailable)
         for i in self.camerasAvailable:
             image = "img_" + str(i) + ".jpg"
             takePicture(i, rootPreviews + image)
