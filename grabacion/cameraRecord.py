@@ -24,16 +24,25 @@ def checkCameras():
 			source.release()
 	return camerasAvailable
 
+# Permite reescalar el frama de un video
+def rescale_frame(frame, percent=100):
+    width = int(frame.shape[1] * percent/ 100)
+    height = int(frame.shape[0] * percent/ 100)
+    dim = (width, height)
+    return cv.resize(frame, dim, interpolation = 3)
+
 # Aca podemos grabar un video desde un fuente (camID), el video se va a almacenar en la ruta
 # que se especifique en videoName, y la duracion de grabacion se pasa en el parametro
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 20.0):
+def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 20.0, scale = 100):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + today
     source = cv.VideoCapture(camID)
+    source.set(3, width)
+    source.set(4, height)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     if not os.path.exists(filePath):
         os.makedirs(filePath)
@@ -45,6 +54,7 @@ def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 2
     print("Starting camera: " + str(camID))
     current = time.time()
     while (int(time.time() - current) <= (duration+1)):
+        frame = rescale_frame(frame, scale)
         out.write(frame)
         _, frame = source.read()
         if cv.waitKey(1) == ord('q'):
@@ -70,7 +80,7 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0):
+def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0, scale = 100):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + rootSources
@@ -80,6 +90,8 @@ def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0):
     index = 0
     
     source = cv.VideoCapture(filePath + "/" + videoFiles[0])
+    source.set(3, width)
+    source.set(4, height)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     out = cv.VideoWriter(filePath + "/" + "f_" + today + '.avi', fourcc, fps, (width,height))
     
@@ -92,6 +104,7 @@ def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0):
                 break
             source = cv.VideoCapture(filePath + "/" + videoFiles[index])
             ret, frame = source.read()
+        frame = rescale_frame(frame, scale)
         out.write(frame)
     source.release()
     out.release()
