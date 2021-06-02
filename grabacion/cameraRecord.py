@@ -79,19 +79,18 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (videoName, folderName, width = 640, height = 480, fps = 20.0):
+def generateVideo (videoName, folderName, typeVideo, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + folderName
-    videoFiles = sorted([n for n in os.listdir(filePath) if (n[-4:] == '.avi') and (n[0] != "f")])
-    
+    videoFiles = sorted([n for n in os.listdir(filePath) if (n[-4:] == '.avi') and (n[0] != "s") and (n[0] != "o")])
     index = 0
     
     source = cv.VideoCapture(filePath + "/" + videoFiles[0])
     source.set(3, width)
     source.set(4, height)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
-    out = cv.VideoWriter(filePath + "/" + "f_" + today + '.avi', fourcc, fps, (width,height))
+    out = cv.VideoWriter(filePath + "/" + typeVideo + "_" + today + '.avi', fourcc, fps, (width,height))
     
     # Empezamos el proceso para unir los videos
     while (source.isOpened()):

@@ -55,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             index += 1 
     
     def startRecording (self):
-        
+        self.progressBar.setValue(0)
         filePath = self.lineEdit.text()
         jsonData = getAtributes(filePath)
         studentName = jsonData["student"].replace(" ", "-")
@@ -66,16 +66,21 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         code = jsonData["code"]
         cameras = code["cameras"]
         duration = code["duration"]
+        if not os.path.exists("Videos/" + fileVideoName):
+            os.makedirs("Videos/" + fileVideoName)
         lenFolders = len([n for n in os.listdir("Videos/" + fileVideoName) if algorithmName in n])
         folderName = algorithmName + "_" + str(lenFolders)
         currentVideo = 0
-        totalVideos = len(cameras) + 1
+        totalVideos = len(cameras) + 2
         for camID, durationCam in zip(cameras, duration):
-            recordVideo(fileVideoName, folderName, camID, durationCam)
-            self.progressBar.setValue((currentVideo / totalVideos) * 100)
+            recordVideo(fileVideoName, folderName, self.camerasAvailable[camID], durationCam)
             currentVideo += 1
-        
-        generateVideo(fileVideoName, folderName, self.width, self.height, self.fps)
+            self.progressBar.setValue((currentVideo / totalVideos) * 100)
+            
+        generateVideo(fileVideoName, folderName, "o")
+        currentVideo += 1
+        self.progressBar.setValue((currentVideo / totalVideos) * 100)
+        generateVideo(fileVideoName, folderName, "s", self.width, self.height, self.fps)
         currentVideo += 1
         self.progressBar.setValue((currentVideo / totalVideos) * 100)
         
