@@ -42,10 +42,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         cameras = code["cameras"]
         duration = code["duration"]
         folder = ""
+        currentVideo = 0
+        totalVideos = len(cameras) + 1
         for camID, durationCam in zip(cameras, duration):
             folder = recordVideo(fileVideoName, camID, durationCam)
+            self.progressBar.setValue((currentVideo / totalVideos) * 100)
+            currentVideo += 1
         
-        generateVideo(fileVideoName + folder)
+        generateVideo(fileVideoName + "/" + folder)
+        currentVideo += 1
+        self.progressBar.setValue((currentVideo / totalVideos) * 100)
         
         
     def isReadyToStart (self):
