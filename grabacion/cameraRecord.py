@@ -44,17 +44,17 @@ def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 2
     videoIndex = len([n for n in os.listdir(filePath) if n[0] != 'f'])
     out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + today + '.avi', fourcc, fps, (width, height))
     if source.isOpened():
-	_, frame = source.read()
-	if _ == True:
-	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
+        _, frame = source.read()
+    if _ == True:
+       frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
     print("Starting camera: " + str(camID))
     current = time.time()
     while (int(time.time() - current) <= (duration+1)):
-	if _ == True:
-	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
-	    out.write(frame)
-	else:
-	    break
+        if _ == True:
+            frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
+            out.write(frame)
+        else:
+            break
         _, frame = source.read()
         
     source.release()
@@ -104,11 +104,11 @@ def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0, scale =
             source.set(3, width)
             source.set(4, height)
             ret, frame = source.read()
-        if _ == True:
-	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
-	    out.write(frame)
-	else:
-	    break
+        if ret == True:
+            frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
+            out.write(frame)
+        else:
+            break
     source.release()
     out.release()
     print("Mix video generated")
