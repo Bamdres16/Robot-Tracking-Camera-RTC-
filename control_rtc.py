@@ -33,8 +33,20 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def startRecording (self):
         
         filePath = self.lineEdit.text()
-        cameras, duration = getAtributes(filePath)
-        print(cameras, duration)
+        jsonData = getAtributes(filePath)
+        studentName = jsonData["student"].replace(" ", "-")
+        institution =  jsonData["institution"].replace(" ", "-")
+        teacher = jsonData["teacher"].replace(" ", "-")
+        fileVideoName = studentName + "_" + institution + "_" + teacher
+        code = jsonData["code"]
+        cameras = code["cameras"]
+        duration = code["duration"]
+        folder = ""
+        for camID, durationCam in zip(cameras, duration):
+            folder = recordVideo(fileVideoName, camID, durationCam)
+        
+        generateVideo(fileVideoName + folder)
+        
         
     def isReadyToStart (self):
         text = self.lineEdit.text()

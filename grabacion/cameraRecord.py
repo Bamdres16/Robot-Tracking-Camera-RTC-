@@ -51,6 +51,7 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
             break
     source.release()
     print("Video created in " + filePath)
+    return today
 
 # Esta funcion toma una imagen de la fuente especificada (camID), y se almacena en la ruta provista en el
 # parametro imageName.

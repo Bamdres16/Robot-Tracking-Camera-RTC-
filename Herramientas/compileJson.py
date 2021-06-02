@@ -7,6 +7,5 @@ import json
 def getAtributes (filePath):
     with open(filePath) as json_file:
         data = json.load(json_file)
-        code = data["code"]
-        return (code["cameras"], code["duration"])
+        return data
     
