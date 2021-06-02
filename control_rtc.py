@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 from rtc_ui import *
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
@@ -99,7 +100,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.startBtn.setEnabled(False)
             self.cbCode.setCheckState(False)
         elif (text[-5:] != ".json"):
-            self.errorLabel.setText("Debe elegir un archivo json válido")
+            self.errorLabel.setText("Debe elegir un archivo json valido")
             self.errorLabel.setVisible(True)
             self.startBtn.setEnabled(False)
             self.cbCode.setCheckState(False)
