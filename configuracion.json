@@ -1,1 +1,1 @@
-{"calidadDefecto": "Alta", "calidades": {"Baja": [640, 480, 50], "Media": [1280, 720, 75], "Alta": [1920, 1080, 100]}}
+{"calidadDefecto": "Baja", "calidades": {"Baja": [640, 480, 100], "Media": [1280, 720, 75], "Alta": [1920, 1080, 100]}}

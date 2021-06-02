@@ -17,19 +17,13 @@ rootPathVideos = "Videos/"
 
 def checkCameras():
 	camerasAvailable = []
-	for i in range(10):
+	for i in range(5):
 		source = cv.VideoCapture(i)
 		if source.read()[0]:
 			camerasAvailable.append(i)
 			source.release()
 	return camerasAvailable
 
-# Permite reescalar el frama de un video
-def rescale_frame(frame, percent=100):
-    width = int(frame.shape[1] * percent/ 100)
-    height = int(frame.shape[0] * percent/ 100)
-    dim = (width, height)
-    return cv.resize(frame, dim, interpolation = 3)
 
 # Aca podemos grabar un video desde un fuente (camID), el video se va a almacenar en la ruta
 # que se especifique en videoName, y la duracion de grabacion se pasa en el parametro
@@ -50,15 +44,19 @@ def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 2
     videoIndex = len([n for n in os.listdir(filePath) if n[0] != 'f'])
     out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + today + '.avi', fourcc, fps, (width, height))
     if source.isOpened():
-        _, frame = source.read()
+	_, frame = source.read()
+	if _ == True:
+	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
     print("Starting camera: " + str(camID))
     current = time.time()
     while (int(time.time() - current) <= (duration+1)):
-        frame = rescale_frame(frame, scale)
-        out.write(frame)
+	if _ == True:
+	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
+	    out.write(frame)
+	else:
+	    break
         _, frame = source.read()
-        if cv.waitKey(1) == ord('q'):
-            break
+        
     source.release()
     print("Video created in " + filePath)
     return today
@@ -103,9 +101,14 @@ def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0, scale =
             if index >= len(videoFiles):
                 break
             source = cv.VideoCapture(filePath + "/" + videoFiles[index])
+            source.set(3, width)
+            source.set(4, height)
             ret, frame = source.read()
-        frame = rescale_frame(frame, scale)
-        out.write(frame)
+        if _ == True:
+	    frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
+	    out.write(frame)
+	else:
+	    break
     source.release()
     out.release()
     print("Mix video generated")
