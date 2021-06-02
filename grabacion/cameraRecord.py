@@ -10,7 +10,7 @@ from datetime import datetime
 
 # Variables globales
 rootPathVideos = "Videos/"
-
+errorValue = 3
 # Mediante esta funcion se pretende obtener todas aquellas fuentes de video
 # que se pueden abrir de los recursos de video (camaras) disponibles en el sistema.
 
@@ -30,7 +30,7 @@ def checkCameras():
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 20.0, scale = 100):
+def recordVideo(videoName, camID, duration, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + today
@@ -49,7 +49,7 @@ def recordVideo(videoName, camID, duration, width = 1920, height = 1080, fps = 2
        frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
     print("Starting camera: " + str(camID))
     current = time.time()
-    while (int(time.time() - current) <= (duration+1)):
+    while (int(time.time() - current) <= (duration+errorValue)):
         if _ == True:
             frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
             out.write(frame)
@@ -78,7 +78,7 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (rootSources, width = 1920, height = 1080, fps = 20.0, scale = 100):
+def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + rootSources

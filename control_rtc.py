@@ -22,7 +22,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.width = 1920
         self.height = 1080
         self.fps = 20.0
-        self.scale = 100
         self.setConfiguration()
         self.comboQuality.currentTextChanged.connect(self.onChangeOption)
         
@@ -36,13 +35,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
-        self.scale = values[2]
     
     def onChangeOption(self):
         text = self.comboQuality.currentText()
         jsonData = getAtributes("configuracion.json")
         jsonData["calidadDefecto"] = text
         setConfiguration(jsonData)
+        defaultQuality = jsonData["calidadDefecto"]
+        values = jsonData["calidades"][defaultQuality]
+        self.width = values[0]
+        self.height = values[1]
          
     def setPreviews(self):
         index = 0
@@ -71,7 +73,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.progressBar.setValue((currentVideo / totalVideos) * 100)
             currentVideo += 1
         
-        generateVideo(fileVideoName + "/" + folder, self.width, self.height, self.fps, self.scale)
+        generateVideo(fileVideoName + "/" + folder, self.width, self.height, self.fps)
         currentVideo += 1
         self.progressBar.setValue((currentVideo / totalVideos) * 100)
         
