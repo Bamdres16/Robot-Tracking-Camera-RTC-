@@ -18,7 +18,7 @@ rootPathVideos = "Videos/"
 def checkCameras():
 	camerasAvailable = []
 	for i in range(10):
-		source = cv.VideoCapture(i)
+		source = cv.VideoCapture(i, 700)
 		if source.read()[0]:
 			camerasAvailable.append(i)
 			source.release()
@@ -33,7 +33,7 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + today
-    source = cv.VideoCapture(camID)
+    source = cv.VideoCapture(camID, 700)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     if not os.path.exists(filePath):
         os.makedirs(filePath)
@@ -56,7 +56,7 @@ def recordVideo(videoName, camID, duration, width=640, height=480, fps= 20.0):
 # Esta funcion toma una imagen de la fuente especificada (camID), y se almacena en la ruta provista en el
 # parametro imageName.
 def takePicture (camID, imageName):
-	source = cv.VideoCapture(camID)
+	source = cv.VideoCapture(camID,700)
 	_,frame = source.read()
 	source.release() 
 	if _ and frame is not None:
@@ -76,7 +76,7 @@ def generateVideo (rootSources, width = 640, height = 480, fps = 20.0):
    
     index = 0
     
-    source = cv.VideoCapture(filePath + "/" + videoFiles[0])
+    source = cv.VideoCapture(filePath + "/" + videoFiles[0], 700)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     out = cv.VideoWriter(filePath + "/" + "f_" + today + '.avi', fourcc, fps, (width,height))
     
