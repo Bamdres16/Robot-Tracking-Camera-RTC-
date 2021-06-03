@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.errorLabel.setVisible(False)
         self.width = 1920
         self.height = 1080
-        self.fps = 20.0
+        self.fps = 10.0
         self.setConfiguration()
         self.comboQuality.currentTextChanged.connect(self.onChangeOption)
         
@@ -74,7 +74,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         currentVideo = 0
         totalVideos = len(cameras) + 2
         for camID, durationCam in zip(cameras, duration):
-            recordVideo(fileVideoName, folderName, self.camerasAvailable[camID], durationCam)
+            recordVideo(fileVideoName, folderName, self.camerasAvailable[camID], durationCam, fps = self.fps)
             currentVideo += 1
             self.progressBar.setValue((currentVideo / totalVideos) * 100)
             
