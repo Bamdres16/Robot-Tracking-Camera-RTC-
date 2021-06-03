@@ -15,6 +15,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.camerasAvailable = checkCameras()
         self.previewSrcAvailable = [self.previewSrc1, self.previewSrc2, self.previewSrc3, self.previewSrc4]
         self.setPreviews()
+        self.saveBtn.setEnabled(False)
         self.lineEdit.textChanged.connect(self.isReadyToStart)
         self.searchBtn.clicked.connect(self.open)
         self.startBtn.clicked.connect(self.startRecording)
@@ -24,8 +25,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.height = 480
         self.fps = 30.0
         self.setConfiguration()
-        self.comboQuality.currentTextChanged.connect(self.onChangeOption)
-        
+        self.saveBtn.clicked.connect(self.onClickedSave)
+        self.comboQuality.currentIndexChanged.connect(self.onChangeValues)
+        self.fpsSB.valueChanged.connect(self.onChangeValues)
         
     def setConfiguration(self):
         jsonData = getAtributes("configuracion.json")
@@ -37,17 +39,26 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.width = values[0]
         self.height = values[1]
         self.fps = jsonData["fps"]
+        self.fpsSB.setValue(self.fps)
+        
     
-    def onChangeOption(self):
+    def onClickedSave(self):
         text = self.comboQuality.currentText()
+        fps = self.fpsSB.value()
         jsonData = getAtributes("configuracion.json")
         jsonData["calidadDefecto"] = text
+        jsonData["fps"] = fps
         setConfiguration(jsonData)
         defaultQuality = jsonData["calidadDefecto"]
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
         self.fps = jsonData["fps"]
+        self.saveBtn.setEnabled(False)
+    
+    
+    def onChangeValues (self):
+        self.saveBtn.setEnabled(True)
          
     def setPreviews(self):
         index = 0

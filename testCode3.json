@@ -5,7 +5,7 @@
     "algorithmName": "Laboratorio3",
     "studentID" : "2017042094",
     "code": {
-        "cameras": [0,1,2], 
-        "duration": [5,5,5]
+        "cameras": [0], 
+        "duration": [5]
         }
 }
