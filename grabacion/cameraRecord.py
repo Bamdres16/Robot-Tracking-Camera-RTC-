@@ -43,7 +43,7 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
         os.makedirs(filePath)
     
     videoIndex = len([n for n in os.listdir(filePath) if n[0] != 'f'])
-    out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + today + '.avi', fourcc, fps, (width, height))
+    out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + videoName + '.avi', fourcc, fps, (width, height))
     if source.isOpened():
         _, frame = source.read()
     print("Starting camera: " + str(camID))
@@ -96,7 +96,7 @@ def generateVideo (videoName, folderName, typeVideo, width = 640, height = 480, 
     source.set(3, width)
     source.set(4, height)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
-    out = cv.VideoWriter(filePath + "/" + typeVideo + "_" + today + '.avi', fourcc, fps, (width,height))
+    out = cv.VideoWriter(filePath + "/" + typeVideo + "_" + videoName + '.avi', fourcc, fps, (width,height))
     
     # Empezamos el proceso para unir los videos
     while (source.isOpened()):
