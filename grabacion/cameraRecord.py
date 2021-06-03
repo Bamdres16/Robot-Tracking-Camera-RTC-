@@ -10,7 +10,6 @@ from datetime import datetime
 
 # Variables globales
 rootPathVideos = "Videos/"
-errorValue = 3
 # Mediante esta funcion se pretende obtener todas aquellas fuentes de video
 # que se pueden abrir de los recursos de video (camaras) disponibles en el sistema.
 
@@ -38,6 +37,7 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
     source = cv.VideoCapture(camID)
     source.set(3, width)
     source.set(4, height)
+    source.set(5, fps)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     if not os.path.exists(filePath):
         os.makedirs(filePath)
@@ -91,6 +91,7 @@ def generateVideo (videoName, folderName, typeVideo, width = 640, height = 480, 
     source = cv.VideoCapture(filePath + "/" + videoFiles[0])
     source.set(3, width)
     source.set(4, height)
+    source.set(5, fps)
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     out = cv.VideoWriter(filePath + "/" + typeVideo + "_" + videoName + '.avi', fourcc, fps, (width,height))
     
