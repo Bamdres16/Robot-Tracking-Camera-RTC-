@@ -50,7 +50,9 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
        frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
     print("Starting camera: " + str(camID))
     current = time.time()
-    while (int(time.time() - current) <= (duration+errorValue)):
+    #while (int(time.time() - current) <= (duration+errorValue)):
+    fp = duration * fps
+    for i in range(0, fp):
         if _ == True:
             frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
             out.write(frame)
@@ -79,7 +81,7 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (videoName, folderName, typeVideo, width = 640, height = 480, fps = 20.0):
+def generateVideo (videoName, folderName, typeVideo, fp, width = 640, height = 480, fps = 20.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + folderName
