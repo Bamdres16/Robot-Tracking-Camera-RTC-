@@ -30,7 +30,7 @@ def checkCameras():
 # duration (el cual esta en segundos).
 
 
-def recordVideo(videoName, folderName, camID, duration, width = 640, height = 480, fps = 20.0):
+def recordVideo(videoName, folderName, camID, duration, width = 640, height = 480, fps = 30.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     
@@ -46,20 +46,24 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
     out = cv.VideoWriter(filePath + "/" + str(videoIndex) + "_" + today + '.avi', fourcc, fps, (width, height))
     if source.isOpened():
         _, frame = source.read()
-    if _ == True:
-       frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
     print("Starting camera: " + str(camID))
-    current = time.time()
+    prev = 0
     #while (int(time.time() - current) <= (duration+errorValue)):
     fp = duration * fps
-    for i in range(0, fp):
+    for i in range(0, int(fp+1)):
         if _ == True:
             frame = cv.resize(frame, (width, height), fx=0,fy=0, interpolation = 2)
             out.write(frame)
         else:
             break
-        _, frame = source.read()
         
+        _, frame = source.read()
+        curr = time.time()
+        sec = curr - prev
+        prev = curr
+        framespersecond = 1 / (sec)
+        print(framespersecond)
+    
     source.release()
     print("Video created in " + filePath)
     return today
@@ -81,7 +85,7 @@ def takePicture (camID, imageName):
 # En este caso rootSources es la ruta del folder en donde se encuentran todos los videos, y dest es la ruta en donde se guardara
 # el video mezclado final, en este caso unicamente se pasa el nombre de como se quiere guardar, ya que el video se guarda en la misma
 # ruta que los videos separados.
-def generateVideo (videoName, folderName, typeVideo, fp, width = 640, height = 480, fps = 20.0):
+def generateVideo (videoName, folderName, typeVideo, width = 640, height = 480, fps = 30.0):
     now = datetime.now()
     today = str(now.strftime("%d-%m-%Y"))
     filePath = rootPathVideos + videoName + "/" + folderName

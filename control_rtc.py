@@ -81,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             currentVideo += 1
             self.progressBar.setValue((currentVideo / totalVideos) * 100)
             
-        generateVideo(fileVideoName, folderName, "o")
+        generateVideo(fileVideoName, folderName, "o", fps = self.fps)
         currentVideo += 1
         self.progressBar.setValue((currentVideo / totalVideos) * 100)
         generateVideo(fileVideoName, folderName, "s", self.width, self.height, self.fps)
