@@ -10,6 +10,20 @@ from datetime import datetime
 
 # Variables globales
 rootPathVideos = "Videos/"
+
+def getFPS ():
+    source = cv.VideoCapture(0)
+    num_frames = 120
+    start = time.time()
+    
+    for i in range(0, num_frames):
+        ret, frame = source.read()
+    end = time.time()
+    seconds = end - start
+    fps  = num_frames / seconds
+    source.release()
+    return int(fps)
+
 # Mediante esta funcion se pretende obtener todas aquellas fuentes de video
 # que se pueden abrir de los recursos de video (camaras) disponibles en el sistema.
 

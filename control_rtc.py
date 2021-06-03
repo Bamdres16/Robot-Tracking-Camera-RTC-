@@ -38,8 +38,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
-        self.fps = jsonData["fps"]
-        self.fpsSB.setValue(self.fps)
+        self.fps = getFPS()
+        self.fpsSB.setValue(getFPS())
         
     
     def onClickedSave(self):
