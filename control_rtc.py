@@ -20,9 +20,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.startBtn.clicked.connect(self.startRecording)
         self.startBtnState = False
         self.errorLabel.setVisible(False)
-        self.width = 1920
-        self.height = 1080
-        self.fps = 10.0
+        self.width = 640
+        self.height = 480
+        self.fps = 30.0
         self.setConfiguration()
         self.comboQuality.currentTextChanged.connect(self.onChangeOption)
         
@@ -36,6 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
+        self.fps = jsonData["fps"]
     
     def onChangeOption(self):
         text = self.comboQuality.currentText()
@@ -46,6 +47,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
+        self.fps = jsonData["fps"]
          
     def setPreviews(self):
         index = 0
@@ -63,7 +65,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         institution =  jsonData["institution"].replace(" ", "-")
         teacher = jsonData["teacher"].replace(" ", "-")
         algorithmName = jsonData["algorithmName"].replace(" ", "-")
-        fileVideoName = studentName + "_" + institution + "_" + teacher
+        studentID = jsonData["studentID"].replace(" ", "-")
+        fileVideoName = studentName + "_" + institution + "_" + teacher + "_" + studentID
         code = jsonData["code"]
         cameras = code["cameras"]
         duration = code["duration"]
