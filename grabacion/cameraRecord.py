@@ -47,7 +47,7 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
     if source.isOpened():
         _, frame = source.read()
     print("Starting camera: " + str(camID))
-    prev = 0
+    
     #while (int(time.time() - current) <= (duration+errorValue)):
     fp = duration * fps
     for i in range(0, int(fp+1)):
@@ -58,11 +58,7 @@ def recordVideo(videoName, folderName, camID, duration, width = 640, height = 48
             break
         
         _, frame = source.read()
-        curr = time.time()
-        sec = curr - prev
-        prev = curr
-        framespersecond = 1 / (sec)
-        print(framespersecond)
+        
     
     source.release()
     print("Video created in " + filePath)
