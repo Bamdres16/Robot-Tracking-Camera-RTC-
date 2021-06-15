@@ -118,17 +118,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if (pathExists and (text[-5:] == ".json")):
             self.errorLabel.setVisible(False)
             self.startBtn.setEnabled(True)
-            self.cbCode.setCheckState(True)
+            
         elif(not pathExists):
             self.errorLabel.setText("Debe elegir un archivo existente")
             self.errorLabel.setVisible(True)
             self.startBtn.setEnabled(False)
-            self.cbCode.setCheckState(False)
+            
         elif (text[-5:] != ".json"):
             self.errorLabel.setText("Debe elegir un archivo json valido")
             self.errorLabel.setVisible(True)
             self.startBtn.setEnabled(False)
-            self.cbCode.setCheckState(False)
+            
             
         
             
