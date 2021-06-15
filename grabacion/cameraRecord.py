@@ -13,7 +13,7 @@ rootPathVideos = "Videos/"
 
 def getFPS ():
     source = cv.VideoCapture(0)
-    num_frames = 120
+    num_frames = 60
     start = time.time()
     
     for i in range(0, num_frames):

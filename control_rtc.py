@@ -19,13 +19,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.lineEdit.textChanged.connect(self.isReadyToStart)
         self.searchBtn.clicked.connect(self.open)
         self.startBtn.clicked.connect(self.startRecording)
+        self.getFPSBtn.clicked.connect(self.onClickedUpdateFPS)
+        self.reloadCamerasBtn.clicked.connect(self.setPreviews)
+        self.saveBtn.clicked.connect(self.onClickedSave)
         self.startBtnState = False
         self.errorLabel.setVisible(False)
         self.width = 640
         self.height = 480
         self.fps = 30.0
         self.setConfiguration()
-        self.saveBtn.clicked.connect(self.onClickedSave)
         self.comboQuality.currentIndexChanged.connect(self.onChangeValues)
         self.fpsSB.valueChanged.connect(self.onChangeValues)
         
@@ -38,8 +40,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         values = jsonData["calidades"][defaultQuality]
         self.width = values[0]
         self.height = values[1]
-        self.fps = getFPS()
-        self.fpsSB.setValue(getFPS())
+        self.fps = jsonData["fps"]
+        self.fpsSB.setValue(self.fps)
         
     
     def onClickedSave(self):
@@ -56,12 +58,21 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.fps = jsonData["fps"]
         self.saveBtn.setEnabled(False)
     
-    
+
+    def onClickedUpdateFPS(self):
+        jsonData = getAtributes("configuracion.json")
+        self.fps = getFPS()
+        self.fpsSB.setValue(self.fps)
+        self.saveBtn.setEnabled(False)
+            
+
     def onChangeValues (self):
         self.saveBtn.setEnabled(True)
          
     def setPreviews(self):
         index = 0
+        if not os.path.exists("Previews"):
+            os.makedirs("Previews")
         for i in self.camerasAvailable:
             image = "img_" + str(i) + ".jpg"
             takePicture(i, rootPreviews + image)
